@@ -14,4 +14,4 @@ Requires python >= 3.2
 - If the character doesn't work, try to change it for another one
 
 
-# [Video](https://www.youtube.com/c/Landee)
+# [Video](https://youtu.be/CJ7zsx2vj60)

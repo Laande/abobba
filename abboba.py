@@ -1,0 +1,63 @@
+import sys
+from g_python.gextension import Extension
+from g_python.hmessage import Direction
+
+
+# ---------------------------
+
+# Header
+
+SPEECH_OUT = 1831
+
+# Command
+
+CMD = "!ab"
+
+# Character
+
+INVI = "&#0;"
+
+# ---------------------------
+
+
+extension_info = {
+    "title": "Anti Bobba",
+    "description": CMD + " on/off",
+    "version": "2.0",
+    "author": "Lande"
+}
+
+ext = Extension(extension_info, sys.argv)
+ext.start()
+
+
+on = False
+
+
+def speech(msg):
+    global on
+
+    (text, bubble, idd) = msg.packet.read('sii')
+
+    if on:
+        if not text.startswith(CMD):
+            msg.is_blocked = True
+            message = ""
+
+            for i in text:
+                message += i + INVI
+
+            ext.send_to_server('{l}{h:%s}{s:"%s"}{i:%s}{i:%s}' % (SPEECH_OUT, message, bubble, idd))
+
+    if text == CMD + " on":
+        msg.is_blocked = True
+        on = True
+        ext.write_to_console('Anti Bobba on')
+
+    if text == CMD + " off":
+        msg.is_blocked = True
+        on = False
+        ext.write_to_console('Anti Bobba off')
+
+
+ext.intercept(Direction.TO_SERVER, speech, SPEECH_OUT)

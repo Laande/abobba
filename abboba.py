@@ -1,23 +1,18 @@
-import sys
-from g_python.gextension import Extension
-from g_python.hmessage import Direction
-
-
 # ---------------------------
 
-# Header
+# Character
 
-SPEECH_OUT = 1831
+INVISIBLE = "char"  # change this string with an invisible character
 
 # Command
 
 CMD = "!ab"
 
-# Character
-
-INVI = "&#0;"
-
 # ---------------------------
+
+import sys
+from g_python.gextension import Extension
+from g_python.hmessage import Direction
 
 
 extension_info = {
@@ -45,9 +40,9 @@ def speech(msg):
             message = ""
 
             for i in text:
-                message += i + INVI
+                message += i + INVISIBLE
 
-            ext.send_to_server('{l}{h:%s}{s:"%s"}{i:%s}{i:%s}' % (SPEECH_OUT, message, bubble, idd))
+            ext.send_to_server('{out:Chat}{s:"%s"}{i:%s}{i:%s}' % (message, bubble, idd))
 
     if text == CMD + " on":
         msg.is_blocked = True
@@ -60,4 +55,4 @@ def speech(msg):
         ext.write_to_console('Anti Bobba off')
 
 
-ext.intercept(Direction.TO_SERVER, speech, SPEECH_OUT)
+ext.intercept(Direction.TO_SERVER, speech, 'Chat')

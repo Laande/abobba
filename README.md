@@ -7,11 +7,9 @@ Requires python >= 3.2
 
 # Configure
 
-- Change the header at the top of the file
+- Change the character ( Name of the variable : " INVISIBLE " ) with an invisible character
 
 - You can change the command if you want
-
-- If the character doesn't work, try to change it for another one
 
 
 # [Video](https://youtu.be/CJ7zsx2vj60)
